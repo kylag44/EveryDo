@@ -31,9 +31,18 @@
     self.toDoDescription = theObject.toDoDescription;
     self.toDoPriority = theObject.priorityNumber;
     self.toDoListLabel.text = self.toDoListTitle;
+    self.toDoListLabel.textColor = [UIColor blueColor];
     
-        
+    if (self.dataObject.isCompletedIndicator == YES) {
+        self.completedLabel.text = @"COMPLETED!";
+        self.completedLabel.textColor = UIColor.greenColor;
+    } else {
+        self.completedLabel.text = @"NOT COMPLETED!";
+        self.completedLabel.textColor = [UIColor redColor];
     }
-    
+
+    }
+
+
 
 @end

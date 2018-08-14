@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,18 +31,27 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCg-KZ-xpS">
-                                                    <rect key="frame" x="166" y="11" width="42" height="21"/>
+                                                    <rect key="frame" x="270" y="11" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tOt-XZ-2bW">
+                                                    <rect key="frame" x="15" y="12" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="cCg-KZ-xpS" firstAttribute="centerY" secondItem="gzk-An-6sn" secondAttribute="centerY" id="6MQ-D0-jLK"/>
-                                                <constraint firstItem="cCg-KZ-xpS" firstAttribute="centerX" secondItem="gzk-An-6sn" secondAttribute="centerX" id="PIY-63-oBQ"/>
+                                                <constraint firstItem="tOt-XZ-2bW" firstAttribute="leading" secondItem="gzk-An-6sn" secondAttribute="leadingMargin" id="3Ir-RZ-WnB"/>
+                                                <constraint firstAttribute="trailing" secondItem="cCg-KZ-xpS" secondAttribute="trailing" constant="63" id="mIh-wB-wP8"/>
+                                                <constraint firstItem="tOt-XZ-2bW" firstAttribute="centerY" secondItem="gzk-An-6sn" secondAttribute="centerY" id="nYt-7j-2Bv"/>
+                                                <constraint firstItem="cCg-KZ-xpS" firstAttribute="centerY" secondItem="gzk-An-6sn" secondAttribute="centerY" id="ySi-eJ-ibc"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="completedLabel" destination="tOt-XZ-2bW" id="Byu-HX-uHT"/>
                                             <outlet property="toDoListLabel" destination="cCg-KZ-xpS" id="GFA-2S-EA6"/>
                                             <segue destination="imq-x5-k67" kind="show" identifier="detailSegue" id="Fab-C3-wYJ"/>
                                         </connections>

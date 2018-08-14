@@ -10,10 +10,11 @@
 #import "ToDo.h"
 
 @interface TableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *completedLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *toDoListLabel;
 ///////////make more properties
-@property (readonly, strong, nonatomic) id dataObject; 
+@property (readonly, strong, nonatomic) ToDo* dataObject; 
 
 @property (strong, nonatomic) NSString *toDoListTitle;
 @property (strong, nonatomic) NSString *toDoDescription;

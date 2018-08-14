@@ -13,11 +13,12 @@
 #import "ToDoViewController.h"
 
 
-@interface ViewController () <UITableViewDataSource, AddNewToDoDelegate>
+@interface ViewController () <UITableViewDataSource,UITableViewDelegate, AddNewToDoDelegate>
 
 
 @property (nonatomic, strong) NSMutableArray<ToDo*> *toDoListArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic) UISwipeGestureRecognizer *recognizer;
 
 //@property (nonatomic, strong) NSArray<NSString*> *sectionTitles;
 
@@ -44,7 +45,17 @@
                             [[ToDo alloc] initWithToDoTitle:@"Read a Book" toDoDescription:@"HAHAHAHA" priorityNumber:2 isCompletedIndicator:NO]]
                           mutableCopy];
 
+   
+    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(completeToDo:)];
+    swipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.tableView addGestureRecognizer:swipeGesture];
+    
+    
 }
+
+
+
+
 
 #pragma mark - AddNewToDoDelegate
 
@@ -78,10 +89,28 @@
     
     [toDoListCell congfigureCell:toDoList];
     return toDoListCell;
-   
-
 }
-
+/////////to make completed button
+-(UISwipeActionsConfiguration *)tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIContextualAction *completeAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"COMPLETED!" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler) (BOOL)) {
+        
+        //TOdo : complete actions here
+        self.toDoListArray[indexPath.row].isCompletedIndicator = YES;
+        [tableView reloadData];
+    }];
+    UISwipeActionsConfiguration *completeActionConfiguration = [UISwipeActionsConfiguration configurationWithActions:@[completeAction]];
+    completeActionConfiguration.performsFirstActionWithFullSwipe = YES;
+    return completeActionConfiguration;
+}
+//////////to delete row
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [_toDoListArray removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else {
+        NSLog(@"Unhandled editing style! %ld", (long)editingStyle);
+    }
+}
 
 ////////for header title
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -125,8 +154,22 @@
 
 #pragma mark - TableView delegate
 
+//-(UISwipeActionsConfiguration *)tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//}
 
-
+-(void)completeToDo:(UISwipeGestureRecognizer *)sender {
+    if (self.toDoListArray.count > 0) {
+        NSLog(@"%i", self.toDoListArray.count);
+        CGPoint point = [sender locationInView:self.tableView];
+        NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+        ToDo *objectToComplete = self.toDoListArray[indexPath.row];
+        NSLog(@"%i", objectToComplete.isCompletedIndicator);
+        objectToComplete.isCompletedIndicator = !objectToComplete.isCompletedIndicator;
+        [self.tableView reloadData];
+        NSLog(@"%i", objectToComplete.isCompletedIndicator);
+    }
+}
 
 
 
